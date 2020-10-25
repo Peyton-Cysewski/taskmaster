@@ -15,13 +15,13 @@ public class MainActivity extends AppCompatActivity {
 
         Button allTasksButton = MainActivity.this.findViewById(R.id.goto_all_tasks_button);
         allTasksButton.setOnClickListener(view -> {
-            Intent goToAllTasks = new Intent(MainActivity.this, AllTasks.class);
+            Intent goToAllTasks = new Intent(MainActivity.this, AllTasksActivity.class);
             MainActivity.this.startActivity(goToAllTasks);
         });
 
         Button addTaskButton = MainActivity.this.findViewById(R.id.goto_add_task_button);
         addTaskButton.setOnClickListener(view -> {
-            Intent goToAddTask = new Intent(MainActivity.this, AddTask.class);
+            Intent goToAddTask = new Intent(MainActivity.this, AddTaskActivity.class);
             MainActivity.this.startActivity(goToAddTask);
         });
     }
