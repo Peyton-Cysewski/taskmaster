@@ -1,6 +1,8 @@
 package com.peytoncysewski.taskmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,27 +36,6 @@ public class MainActivity extends AppCompatActivity {
             Intent goToSettings = new Intent(MainActivity.this, UserSettingsActivity.class);
             MainActivity.this.startActivity(goToSettings);
         });
-
-
-        // Hardcoded tasks on the home page
-        TextView task1 = findViewById(R.id.task_1);
-        task1.setOnClickListener(view -> {
-            Intent goToTaskDetails = new Intent(MainActivity.this, TaskDetailActivity.class);
-            goToTaskDetails.putExtra("taskName", task1.getText());
-            MainActivity.this.startActivity(goToTaskDetails);
-        });
-        TextView task2 = findViewById(R.id.task_2);
-        task2.setOnClickListener(view -> {
-            Intent goToTaskDetails = new Intent(MainActivity.this, TaskDetailActivity.class);
-            goToTaskDetails.putExtra("taskName", task2.getText());
-            MainActivity.this.startActivity(goToTaskDetails);
-        });
-        TextView task3 = findViewById(R.id.task_3);
-        task3.setOnClickListener(view -> {
-            Intent goToTaskDetails = new Intent(MainActivity.this, TaskDetailActivity.class);
-            goToTaskDetails.putExtra("taskName", task3.getText());
-            MainActivity.this.startActivity(goToTaskDetails);
-        });
     }
 
     @Override
@@ -66,5 +47,9 @@ public class MainActivity extends AppCompatActivity {
         String result = preferences.getString("username", "Your Tasks");
         result = result.equals("") ? "Your Tasks" : (result += "'s Tasks");
         usernameLabel.setText(result);
+
+        RecyclerView taskList = findViewById(R.id.home_page_tasks);
+        taskList.setLayoutManager(new LinearLayoutManager(this));
+//        taskList.setAdapter(new TaskAdapter);
     }
 }
