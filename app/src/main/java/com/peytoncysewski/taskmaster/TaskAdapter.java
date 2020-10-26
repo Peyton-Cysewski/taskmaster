@@ -1,6 +1,5 @@
 package com.peytoncysewski.taskmaster;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +75,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                 break;
         }
 
-        TextView taskNameTextView = holder.itemView.findViewById(R.id.task_name);
+        TextView taskNameTextView = holder.itemView.findViewById(R.id.task_title);
         TextView taskBodyTextView = holder.itemView.findViewById(R.id.task_body);
         TextView taskStateTextView = holder.itemView.findViewById(R.id.task_state);
         taskNameTextView.setText(holder.task.getTitle());
