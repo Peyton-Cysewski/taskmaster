@@ -16,7 +16,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public ArrayList<Task> tasks;
     public OnInteractWithTaskListener listener;
 
-
     public TaskAdapter(ArrayList<Task> tasks, OnInteractWithTaskListener listener){
         this.tasks = tasks;
         this.listener = listener;
@@ -26,11 +25,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         public Task task;
         public View itemView;
 
-
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
             this.itemView = itemView;
-
         }
     }
 
@@ -43,7 +40,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         TaskViewHolder viewHolder = new TaskViewHolder(view);
 
         view.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View view) {
                 listener.taskListener(viewHolder.task);
@@ -57,14 +53,39 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         public void taskListener(Task task);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         holder.task = tasks.get(position);
+
+        String stateString;
+        switch (holder.task.getState()) {
+            case NEW:
+                stateString = "New";
+                break;
+            case ASSIGNED:
+                stateString = "Assigned";
+                break;
+            case IN_PROGRESS:
+                stateString = "In Progress";
+                break;
+            case COMPLETE:
+                stateString = "Complete";
+                break;
+            default:
+                stateString = "N/A";
+                break;
+        }
+
+        TextView taskNameTextView = holder.itemView.findViewById(R.id.task_name);
+        TextView taskBodyTextView = holder.itemView.findViewById(R.id.task_body);
+        TextView taskStateTextView = holder.itemView.findViewById(R.id.task_state);
+        taskNameTextView.setText(holder.task.getTitle());
+        taskBodyTextView.setText(holder.task.getBody());
+        taskStateTextView.setText(stateString);
     }
 
-    @Override // this gets called so it knows how many fragments (list items) to put on the screen at once
+    @Override
     public int getItemCount() {
-        return tasks.size(); // TODO: make this return the list length
+        return tasks.size();
     }
 }

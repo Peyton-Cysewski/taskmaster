@@ -12,7 +12,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements TaskAdapter.OnInteractWithTaskListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +51,29 @@ public class MainActivity extends AppCompatActivity {
         result = result.equals("") ? "Your Tasks" : (result += "'s Tasks");
         usernameLabel.setText(result);
 
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new Task("Task 1", "This is task 1", TaskState.NEW));
+        tasks.add(new Task("Task 2", "This is task 2", TaskState.NEW));
+        tasks.add(new Task("Task 3", "This is task 3", TaskState.NEW));
+        tasks.add(new Task("Task 4", "This is task 4", TaskState.NEW));
+        tasks.add(new Task("Task 5", "This is task 5", TaskState.NEW));
+        tasks.add(new Task("Task 6", "This is task 6", TaskState.NEW));
+        tasks.add(new Task("Task 7", "This is task 7", TaskState.NEW));
+        tasks.add(new Task("Task 8", "This is task 8", TaskState.NEW));
+        tasks.add(new Task("Task 9", "This is task 9", TaskState.NEW));
+        tasks.add(new Task("Task 10", "This is task 10", TaskState.NEW));
+
         RecyclerView taskList = findViewById(R.id.home_page_tasks);
         taskList.setLayoutManager(new LinearLayoutManager(this));
-//        taskList.setAdapter(new TaskAdapter);
+        taskList.setAdapter(new TaskAdapter(tasks, this));
+    }
+
+    @Override
+    public void taskListener(Task task) {
+        Intent intent = new Intent(MainActivity.this, TaskDetailActivity.class);
+        intent.putExtra("title", task.getTitle());
+        intent.putExtra("body", task.getBody());
+        intent.putExtra("state", task.getState());
+        this.startActivity(intent);
     }
 }
