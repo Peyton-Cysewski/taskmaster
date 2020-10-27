@@ -1,11 +1,19 @@
 package com.peytoncysewski.taskmaster;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Task {
+
+    @PrimaryKey(autoGenerate = true)
+    long id;
+
     private String title;
     private String body;
-    private TaskState state;
+    private Integer state;
 
-    public Task(String title, String body, TaskState state) {
+    public Task(String title, String body, Integer state) {
         this.title = title;
         this.body = body;
         this.state = state;
@@ -15,8 +23,11 @@ public class Task {
     public void setTitle(String title) { this.title = title; }
     public String getBody() { return body; }
     public void setBody(String body) { this.body = body; }
-    public TaskState getState() { return state; }
-    public void setState(TaskState state) { this.state = state; }
+    public Integer getState() { return this.state; }
+    public void setState(Integer state) { this.state = state; }
+
+    public TaskState getStateEnum() { return TaskState.values()[state]; }
+    public void setStateEnum(TaskState state) { this.state = state.ordinal(); }
 }
 
 enum TaskState {
