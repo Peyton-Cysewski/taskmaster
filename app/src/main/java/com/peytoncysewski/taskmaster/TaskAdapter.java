@@ -57,7 +57,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.task = tasks.get(position);
 
         String stateString;
-        switch (holder.task.getState()) {
+        switch (holder.task.getStateEnum()) {
             case NEW:
                 stateString = "New";
                 break;
