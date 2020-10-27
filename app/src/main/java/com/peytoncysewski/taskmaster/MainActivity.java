@@ -59,16 +59,6 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnInt
                 .build();
 
         ArrayList<Task> tasks = (ArrayList<Task>) database.taskDao().getAllTasks();
-//        tasks.add(new Task("Task 1", "This is task 1", TaskState.NEW));
-//        tasks.add(new Task("Task 2", "This is task 2", TaskState.NEW));
-//        tasks.add(new Task("Task 3", "This is task 3", TaskState.NEW));
-//        tasks.add(new Task("Task 4", "This is task 4", TaskState.NEW));
-//        tasks.add(new Task("Task 5", "This is task 5", TaskState.NEW));
-//        tasks.add(new Task("Task 6", "This is task 6", TaskState.NEW));
-//        tasks.add(new Task("Task 7", "This is task 7", TaskState.NEW));
-//        tasks.add(new Task("Task 8", "This is task 8", TaskState.NEW));
-//        tasks.add(new Task("Task 9", "This is task 9", TaskState.NEW));
-//        tasks.add(new Task("Task 10", "This is task 10", TaskState.NEW));
 
         RecyclerView taskList = findViewById(R.id.home_page_tasks);
         taskList.setLayoutManager(new LinearLayoutManager(this));
