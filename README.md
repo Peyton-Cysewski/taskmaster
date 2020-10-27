@@ -21,3 +21,5 @@ Detail Page
 &#9 Added a recycler view on the home page that acts as a scrollable view filled with some hardcoded tasks.
 - 1.3 *Room Database Connection* - 26 October 2020<br>
 &#9 The Add Task page now actually saves whatever is input into the text fields. These saved Tasks now show up on the home page in the recycler view.
+- 1.4 *Espresso Testing* - 27 October 2020<br>
+&#9 Added test using Espresso. Currently the tests make sure the MainActivity loads correctly, the username can be changed, new tasks can be saved, and new tasks can be clicked on in the recycler view and display the proper information on the additional DetailActivity page.
