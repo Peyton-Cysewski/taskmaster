@@ -23,3 +23,9 @@ Detail Page
 &#9 The Add Task page now actually saves whatever is input into the text fields. These saved Tasks now show up on the home page in the recycler view.
 - 1.4 *Espresso Testing* - 27 October 2020<br>
 &#9 Added test using Espresso. Currently the tests make sure the MainActivity loads correctly, the username can be changed, new tasks can be saved, and new tasks can be clicked on in the recycler view and display the proper information on the additional DetailActivity page.
+- 1.5 *Amplify and Dynamo DB* - 5 November 2020<br>
+&#9 The Tasks added from the AddTask activity page are now added directly to a DynamoDB database using Amplify. The recycler view on the Main Activity is also displaying tasks directly from the cloud. Also, two espresso tests were removed because they would be adding new tasks to the cloud each time the tests were run. They work in previous versions but are not needed at the moment.
+
+#### Additional Info
+- GraphQL endpoint: https://plvgfolxezha3bcujunsjr7sjy.appsync-api.us-west-2.amazonaws.com/graphql
+- GraphQL API KEY: da2-ebjh237mmncljillkwjjkqodiy
