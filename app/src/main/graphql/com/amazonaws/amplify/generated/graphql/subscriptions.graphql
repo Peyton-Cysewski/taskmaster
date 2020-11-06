@@ -6,6 +6,15 @@ subscription OnCreateTask {
     body
     state
     description
+    belongsTo {
+      id
+      name
+      tasks {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
   }
@@ -17,6 +26,15 @@ subscription OnUpdateTask {
     body
     state
     description
+    belongsTo {
+      id
+      name
+      tasks {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
   }
@@ -28,6 +46,75 @@ subscription OnDeleteTask {
     body
     state
     description
+    belongsTo {
+      id
+      name
+      tasks {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateTeam {
+  onCreateTeam {
+    id
+    name
+    tasks {
+      items {
+        id
+        title
+        body
+        state
+        description
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateTeam {
+  onUpdateTeam {
+    id
+    name
+    tasks {
+      items {
+        id
+        title
+        body
+        state
+        description
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteTeam {
+  onDeleteTeam {
+    id
+    name
+    tasks {
+      items {
+        id
+        title
+        body
+        state
+        description
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }

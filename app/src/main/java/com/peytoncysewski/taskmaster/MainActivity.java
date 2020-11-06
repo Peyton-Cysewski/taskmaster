@@ -16,8 +16,10 @@ import android.widget.TextView;
 
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
+import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.Team;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnInt
             Intent goToSettings = new Intent(MainActivity.this, UserSettingsActivity.class);
             MainActivity.this.startActivity(goToSettings);
         });
+
+//        manuallyCreate3Teams();
     }
 
     @Override
@@ -75,10 +79,13 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnInt
         // Getting info from Rooms
 //        ArrayList<Task> tasks = (ArrayList<Task>) database.taskDao().getAllTasks();
 
+        String teamPref = preferences.getString("team", "N/A");
+
+
         // Getting info from Amplify DynamoDB
         ArrayList<Task> tasks = new ArrayList<>();
         Amplify.API.query(
-                ModelQuery.list(com.amplifyframework.datastore.generated.model.Task.class),
+                ModelQuery.list(com.amplifyframework.datastore.generated.model.Task.class, com.amplifyframework.datastore.generated.model.Task.BELONGS_TO.),
                 response -> {
                     for(com.amplifyframework.datastore.generated.model.Task currTask : response.getData()) {
                         Task convTask = new Task(currTask.getTitle(), currTask.getBody(), currTask.getState());
@@ -103,5 +110,30 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.OnInt
         intent.putExtra("body", task.getBody());
         intent.putExtra("state", task.getState());
         this.startActivity(intent);
+    }
+
+    // ==================================================================================================
+    // Utility Methods (not Lifecycle methods)
+
+    private void manuallyCreate3Teams() {
+        Team redTeam = com.amplifyframework.datastore.generated.model.Team.builder().name("Red Team").build();
+        Team greenTeam = com.amplifyframework.datastore.generated.model.Team.builder().name("Green Team").build();
+        Team blueTeam = com.amplifyframework.datastore.generated.model.Team.builder().name("Blue Team").build();
+
+        Amplify.API.mutate( // Red Team
+                ModelMutation.create(redTeam),
+                response -> Log.i("Amplify.createTeam", "Red team successfully created"),
+                error -> Log.e("Amplify.createTeam", "Red team creation unsuccessful")
+        );
+        Amplify.API.mutate( // Green Team
+                ModelMutation.create(greenTeam),
+                response -> Log.i("Amplify.createTeam", "Green team successfully created"),
+                error -> Log.e("Amplify.createTeam", "Green team creation unsuccessful")
+        );
+        Amplify.API.mutate( // Blue Team
+                ModelMutation.create(blueTeam),
+                response -> Log.i("Amplify.createTeam", "Blue team successfully created"),
+                error -> Log.e("Amplify.createTeam", "Blue team creation unsuccessful")
+        );
     }
 }

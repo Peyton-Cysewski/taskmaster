@@ -9,6 +9,15 @@ mutation CreateTask(
     body
     state
     description
+    belongsTo {
+      id
+      name
+      tasks {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
   }
@@ -23,6 +32,15 @@ mutation UpdateTask(
     body
     state
     description
+    belongsTo {
+      id
+      name
+      tasks {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
   }
@@ -37,6 +55,84 @@ mutation DeleteTask(
     body
     state
     description
+    belongsTo {
+      id
+      name
+      tasks {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateTeam(
+  $input: CreateTeamInput!
+  $condition: ModelTeamConditionInput
+) {
+  createTeam(input: $input, condition: $condition) {
+    id
+    name
+    tasks {
+      items {
+        id
+        title
+        body
+        state
+        description
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateTeam(
+  $input: UpdateTeamInput!
+  $condition: ModelTeamConditionInput
+) {
+  updateTeam(input: $input, condition: $condition) {
+    id
+    name
+    tasks {
+      items {
+        id
+        title
+        body
+        state
+        description
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteTeam(
+  $input: DeleteTeamInput!
+  $condition: ModelTeamConditionInput
+) {
+  deleteTeam(input: $input, condition: $condition) {
+    id
+    name
+    tasks {
+      items {
+        id
+        title
+        body
+        state
+        description
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }

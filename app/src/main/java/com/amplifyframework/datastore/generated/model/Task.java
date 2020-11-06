@@ -1,5 +1,6 @@
 package com.amplifyframework.datastore.generated.model;
 
+import com.amplifyframework.core.model.annotations.BelongsTo;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,11 +25,13 @@ public final class Task implements Model {
   public static final QueryField BODY = field("body");
   public static final QueryField STATE = field("state");
   public static final QueryField DESCRIPTION = field("description");
+  public static final QueryField BELONGS_TO = field("taskBelongsToId");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String") String title;
   private final @ModelField(targetType="String") String body;
   private final @ModelField(targetType="Int") Integer state;
   private final @ModelField(targetType="String") String description;
+  private final @ModelField(targetType="Team") @BelongsTo(targetName = "taskBelongsToId", type = Team.class) Team belongsTo;
   public String getId() {
       return id;
   }
@@ -49,12 +52,17 @@ public final class Task implements Model {
       return description;
   }
   
-  private Task(String id, String title, String body, Integer state, String description) {
+  public Team getBelongsTo() {
+      return belongsTo;
+  }
+  
+  private Task(String id, String title, String body, Integer state, String description, Team belongsTo) {
     this.id = id;
     this.title = title;
     this.body = body;
     this.state = state;
     this.description = description;
+    this.belongsTo = belongsTo;
   }
   
   @Override
@@ -69,7 +77,8 @@ public final class Task implements Model {
               ObjectsCompat.equals(getTitle(), task.getTitle()) &&
               ObjectsCompat.equals(getBody(), task.getBody()) &&
               ObjectsCompat.equals(getState(), task.getState()) &&
-              ObjectsCompat.equals(getDescription(), task.getDescription());
+              ObjectsCompat.equals(getDescription(), task.getDescription()) &&
+              ObjectsCompat.equals(getBelongsTo(), task.getBelongsTo());
       }
   }
   
@@ -81,6 +90,7 @@ public final class Task implements Model {
       .append(getBody())
       .append(getState())
       .append(getDescription())
+      .append(getBelongsTo())
       .toString()
       .hashCode();
   }
@@ -93,7 +103,8 @@ public final class Task implements Model {
       .append("title=" + String.valueOf(getTitle()) + ", ")
       .append("body=" + String.valueOf(getBody()) + ", ")
       .append("state=" + String.valueOf(getState()) + ", ")
-      .append("description=" + String.valueOf(getDescription()))
+      .append("description=" + String.valueOf(getDescription()) + ", ")
+      .append("belongsTo=" + String.valueOf(getBelongsTo()))
       .append("}")
       .toString();
   }
@@ -126,6 +137,7 @@ public final class Task implements Model {
       null,
       null,
       null,
+      null,
       null
     );
   }
@@ -135,7 +147,8 @@ public final class Task implements Model {
       title,
       body,
       state,
-      description);
+      description,
+      belongsTo);
   }
   public interface BuildStep {
     Task build();
@@ -144,6 +157,7 @@ public final class Task implements Model {
     BuildStep body(String body);
     BuildStep state(Integer state);
     BuildStep description(String description);
+    BuildStep belongsTo(Team belongsTo);
   }
   
 
@@ -153,6 +167,7 @@ public final class Task implements Model {
     private String body;
     private Integer state;
     private String description;
+    private Team belongsTo;
     @Override
      public Task build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -162,7 +177,8 @@ public final class Task implements Model {
           title,
           body,
           state,
-          description);
+          description,
+          belongsTo);
     }
     
     @Override
@@ -189,6 +205,12 @@ public final class Task implements Model {
         return this;
     }
     
+    @Override
+     public BuildStep belongsTo(Team belongsTo) {
+        this.belongsTo = belongsTo;
+        return this;
+    }
+    
     /** 
      * WARNING: Do not set ID when creating a new object. Leave this blank and one will be auto generated for you.
      * This should only be set when referring to an already existing object.
@@ -212,12 +234,13 @@ public final class Task implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String title, String body, Integer state, String description) {
+    private CopyOfBuilder(String id, String title, String body, Integer state, String description, Team belongsTo) {
       super.id(id);
       super.title(title)
         .body(body)
         .state(state)
-        .description(description);
+        .description(description)
+        .belongsTo(belongsTo);
     }
     
     @Override
@@ -238,6 +261,11 @@ public final class Task implements Model {
     @Override
      public CopyOfBuilder description(String description) {
       return (CopyOfBuilder) super.description(description);
+    }
+    
+    @Override
+     public CopyOfBuilder belongsTo(Team belongsTo) {
+      return (CopyOfBuilder) super.belongsTo(belongsTo);
     }
   }
   
